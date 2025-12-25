@@ -6,9 +6,9 @@ public class TaskService {
     private IdGenerator idGen = new IdGenerator();
     private List<Task> tasks = new ArrayList<Task>();
 
-    public Task createTask(String title, String description) { 
+    public Task createTask(int userId, String title, String description) { 
         int id = idGen.generateId();
-        Task task = new Task(id, title, description);
+        Task task = new Task(id, userId, title, description);
         tasks.add(task);
 
         return task;
@@ -25,8 +25,13 @@ public class TaskService {
         return null;
     }
 
-    public List<Task> getAllTask() {
-        return tasks;
+    public List<Task> getTaskByUser(int userId) {
+        List<Task> userTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getUserId() == userId) {
+                userTasks.add(task);
+            }
+        }
+        return userTasks;
     }
-
 }
