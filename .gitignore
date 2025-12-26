@@ -1,6 +1,6 @@
-out/*
+out/
 *.class 
 *.vscode/
 *.py
 data/*
-.classpath
+TaskManager/.classpath
