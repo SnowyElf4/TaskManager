@@ -1,24 +1,30 @@
-package TaskManager.service;
-import TaskManager.task.*;
+package src.service;
 import java.util.ArrayList; import java.util.List;
+
+import src.task.*;
 
 public class TaskService {
     private IdGenerator idGen = new IdGenerator();
-    private List<Task> tasks = new ArrayList<Task>();
+    private StorageService storage;
 
-    public Task createTask(int userId, String title, String description) { 
+    public TaskService(StorageService storage) {
+        this.storage = storage;
+    }
+
+    public Task createTask(int userId, String title, String description) {
         int id = idGen.generateId();
         Task task = new Task(id, userId, title, description);
-        tasks.add(task);
 
+        storage.getTasks().add(task);
+        storage.saveTasks();
         return task;
     }
 
     public Task markTaskDone(int id) {
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
+        for (Task task : storage.getTasks()) {
             if (task.getId() == id) {
                 task.markDone();
+                storage.saveTasks();
                 return task;
             }
         }
@@ -27,7 +33,7 @@ public class TaskService {
 
     public List<Task> getTaskByUser(int userId) {
         List<Task> userTasks = new ArrayList<>();
-        for (Task task : tasks) {
+        for (Task task : storage.getTasks()) {
             if (task.getUserId() == userId) {
                 userTasks.add(task);
             }

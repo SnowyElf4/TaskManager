@@ -1,4 +1,4 @@
-package TaskManager.task;
+package src.task;
 
 public class Task {
     private int taskId;

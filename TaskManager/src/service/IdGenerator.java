@@ -1,4 +1,4 @@
-package TaskManager.service;
+package src.service;
 
 public class IdGenerator {
     public int generateId() {

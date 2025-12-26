@@ -1,4 +1,4 @@
-package TaskManager.user;
+package src.user;
 
 public class User {
     private String name;
