@@ -4,3 +4,4 @@ out/
 *.py
 data/*
 TaskManager/.classpath
+tasks.md

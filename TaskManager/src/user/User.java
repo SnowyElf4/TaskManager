@@ -20,4 +20,3 @@ public class User {
         return this.name;
     }
 }
-

@@ -1,32 +1,38 @@
 package src.service;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import src.task.Task;
 import src.user.User;
+import src.appconfig.AppConfig;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StorageService {
-    private Gson gson = new Gson();
+    private Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .create();
 
-    private final String USERS_FILE = "TaskManager/data/users.json";
-    private final String TASKS_FILE = "TaskManager/data/tasks.json";
-
+    private AppConfig appConfig = new AppConfig();
     private List<User> users = new ArrayList<>();
     private List<Task> tasks = new ArrayList<>();
 
-    public StorageService() {
-        File dataDir = new File("data");
-        if (!dataDir.exists())
-            dataDir.mkdir();
-    }
-
     public void loadUsers() {
-        File file = new File(USERS_FILE);
+        File file = new File(appConfig.getUsersFilePath());
         if (!file.exists()) {
+            try {
+                File newUserJson = new File(appConfig.getUsersFilePath());
+                if (newUserJson.createNewFile()) {
+                    try (Writer writer = new FileWriter(newUserJson)) {
+                        gson.toJson(users, writer);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             users = new ArrayList<>();
             return;
         }
@@ -43,8 +49,18 @@ public class StorageService {
     }
 
     public void loadTasks() {
-        File file = new File(TASKS_FILE);
+        File file = new File(appConfig.getTasksFilePath());
         if (!file.exists()) {
+            try {
+                File newTaskJson = new File(appConfig.getTasksFilePath());
+                if (newTaskJson.createNewFile()) {
+                    try (Writer writer = new FileWriter(newTaskJson)) {
+                        gson.toJson(tasks, writer);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             tasks = new ArrayList<>();
             return;
         }
@@ -61,7 +77,7 @@ public class StorageService {
     }
 
     public void saveUsers() {
-        try (Writer writer = new FileWriter(USERS_FILE)) {
+        try (Writer writer = new FileWriter(appConfig.getUsersFilePath())) {
             gson.toJson(users, writer);
         } catch (IOException e) {
             e.printStackTrace();
@@ -69,10 +85,60 @@ public class StorageService {
     }
 
     public void saveTasks() {
-        try (Writer writer = new FileWriter(TASKS_FILE)) {
+        try (Writer writer = new FileWriter(appConfig.getTasksFilePath())) {
             gson.toJson(tasks, writer);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void addUser(User user) {
+        users.add(user);
+        try {
+            saveUsers();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addTask(Task task) {
+        tasks.add(task);
+        try {
+            saveTasks();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public User findUserById(int id) {
+        for (User user : users) {
+            if (user.getId() == id) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public Task findTaskById(int id) {
+        for (Task task : tasks) {
+            if (task.getId() == id) {
+                return task;
+            }
+        }
+        return null;
+    }
+
+    public void updateTask(Task updatedTask) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getId() == updatedTask.getId()) {
+                tasks.set(i, updatedTask);
+                try {
+                    saveTasks();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

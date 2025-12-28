@@ -55,13 +55,11 @@ public class Menu {
 
     public void start(Scanner scanner) {
         while (true) {
-            System.out.println(
-                    """
+            System.out.print("""
+                    1. Create user.
 
-                            1. Create user.
-
-                            0. Exit.
-                            """);
+                    0. Exit.
+                    """);
 
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -139,8 +137,9 @@ public class Menu {
         if (tasks.isEmpty()) {
             System.out.println("Task list empty.");
         } else {
-            for (Task t : tasks) {
-                System.out.println("ID: " + t.getId() + ", Task name: " + t.getTitle() + ", Is done: " + t.isDone());
+            for (Task task : tasks) {
+                System.out.println(
+                        "ID: " + task.getId() + ", Task name: " + task.getTitle() + ", Is done: " + task.isDone());
             }
         }
     }

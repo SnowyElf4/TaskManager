@@ -1,6 +1,9 @@
 package src.service;
-import java.util.ArrayList; import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import src.user.User;
 import src.task.*;
 
 public class TaskService {
@@ -12,7 +15,29 @@ public class TaskService {
     }
 
     public Task createTask(int userId, String title, String description) {
+        User user = storage.findUserById(userId);
+
+        if (user == null) {
+            return null;
+        }
+
+        List<Task> tasks = storage.getTasks();
         int id = idGen.generateId();
+
+        while (true) {
+            boolean uniq = true;
+            for (Task existingTask : tasks) {
+                if (existingTask.getId() == id) {
+                    id = idGen.generateId();
+                    uniq = false;
+                    break;
+                }
+            }
+            if (uniq) {
+                break;
+            }
+        }
+
         Task task = new Task(id, userId, title, description);
 
         storage.getTasks().add(task);
@@ -20,15 +45,43 @@ public class TaskService {
         return task;
     }
 
-    public Task markTaskDone(int id) {
-        for (Task task : storage.getTasks()) {
-            if (task.getId() == id) {
-                task.markDone();
-                storage.saveTasks();
-                return task;
+    public Task markTaskDone(int taskId, int userId) {
+        User user = storage.findUserById(userId);
+        if (user == null)
+            return null;
+
+        Task task = storage.findTaskById(taskId);
+        if (task != null && task.getUserId() == userId) {
+            task.markDone();
+            storage.saveTasks();
+            return task;
+        }
+
+        return null;
+    }
+
+    public List<Task> getCompletedTasksByUser(int userId) {
+        List<Task> completedTasks = new ArrayList<>();
+        List<Task> tasks = storage.getTasks();
+
+        for (Task task : tasks) {
+            if (task.getUserId() == userId && task.isDone()) {
+                completedTasks.add(task);
             }
         }
-        return null;
+        return completedTasks;
+    }
+
+    public List<Task> getPendingTasksByUser(int userId) {
+        List<Task> pendingTasks = new ArrayList<>();
+        List<Task> tasks = storage.getTasks();
+
+        for (Task task : tasks) {
+            if (task.getUserId() == userId && !task.isDone()) {
+                pendingTasks.add(task);
+            }
+        }
+        return pendingTasks;
     }
 
     public List<Task> getTaskByUser(int userId) {
