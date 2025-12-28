@@ -2,6 +2,6 @@ out/
 *.class 
 *.vscode/
 *.py
-data/*
+data/
 TaskManager/.classpath
 tasks.md

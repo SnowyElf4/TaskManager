@@ -110,7 +110,7 @@ public class Menu {
                     System.out.println("Write ID of task for make done: ");
                     int inputTaskId = scanner.nextInt();
                     scanner.nextLine();
-                    Task doneTask = taskService.markTaskDone(inputTaskId);
+                    Task doneTask = taskService.markTaskDone(inputTaskId, currentUser.getId());
                     if (doneTask != null && doneTask.getUserId() == currentUser.getId()) {
                         System.out.println("Task done: " + doneTask.getTitle());
                     } else {

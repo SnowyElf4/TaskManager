@@ -28,5 +28,4 @@ public class Task {
     public String setDescription(String newDescription) { return description = newDescription; }
     public String getDescription() { return description; }
     public boolean isDone() { return done; }
-
 }
