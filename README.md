@@ -23,6 +23,9 @@
 
 ```
 src/
+ ├─ appconfig/
+ │   └─ AppConfig.java
+ │
  ├─ ui/
  │   ├─ MenuController.java   // управление флоу приложения
  │   ├─ MenuView.java         // вывод в консоль
