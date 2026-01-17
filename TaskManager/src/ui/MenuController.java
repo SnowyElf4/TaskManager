@@ -1,5 +1,6 @@
 package src.ui;
 
+import java.util.List;
 import src.user.*;
 import src.service.*;
 import src.task.*;
@@ -11,17 +12,30 @@ public class MenuController {
     private TaskService taskService = new TaskService(storageService);
     private MenuView menuView = new MenuView();
     private InputReader inputReader = new InputReader();
+    private boolean isRunning = true;
 
-    public void chooseUser() {
-        if (currentUser == null) {
-            menuView.showRegistrationMenu();
-        } else {
-            menuView.showMainMenu();
+    public void run() {
+        storageService.loadTasks();
+        storageService.loadUsers();
+
+        while (isRunning) {
+            if (storageService.getUsers().isEmpty()) {
+                registrationFlow();
+            } else if (currentUser == null) {
+                chooseUserFlow();
+            } else {
+                mainMenuFlow();
+            }
         }
+    }
+
+    public void registrationFlow() {
+        menuView.showRegistrationMenu();
 
         int input = inputReader.readInt(null, 0, 1);
 
         if (input == 0) {
+            isRunning = false;
             return;
         }
 
@@ -40,17 +54,70 @@ public class MenuController {
         }
     }
 
-    public void run() {
-        storageService.loadTasks();
-        storageService.loadUsers();
+    public void chooseUserFlow() {
+        menuView.showUsers(storageService.getUsers());
+        menuView.showMessage("0. Exit");
 
-        if (storageService.getUsers().isEmpty()) {
-            menuView.showRegistrationMenu();
+        int input = inputReader.readInt("Choose user: ", 0, storageService.getUsers().size());
+
+        if (input == 0) {
+            isRunning = false;
+            return;
+        }
+
+        currentUser = storageService.getUsers().get(input - 1);
+    }
+
+    public void mainMenuFlow() {
+        menuView.showMainMenu();
+
+        int input = inputReader.readInt(null, 0, 4);
+
+        switch (input) {
+            case 0:
+                isRunning = false;
+                break;
+            case 1:
+                createTaskFlow();
+                break;
+            case 4:
+                currentUser = null;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void showTasksFlow() {
+        List<Task> userTasks = taskService.getTaskByUser(currentUser.getId());
+        menuView.showTasks(userTasks);
+    }
+
+    public void createTaskFlow() {
+        String inputTaskName = inputReader.readString("Write task name: ");
+        String inputTaskDescription = inputReader.readString("Write description: ");
+
+        Task task = taskService.createTask(currentUser.getId(), inputTaskName, inputTaskDescription);
+
+        menuView.showTaskCreated(task);
+    }
+
+    public void markTaskDoneFlow() {
+        List<Task> userTasks = taskService.getTaskByUser(currentUser.getId());
+        menuView.showTasks(userTasks);
+
+        int input = inputReader.readInt("Enter task ID to mark done (0 for cancel)", 0, 99999999);
+
+        if (input == 0) {
+            isRunning = false;
+            return;
         } else {
-            menuView.showUsers(storageService.getUsers());
-
-            int userIndex = inputReader.readInt("Choose user: ", 1, storageService.getUsers().size());
-            currentUser = storageService.getUsers().get(userIndex);
+            Task doneTask = taskService.markTaskDone(input, currentUser.getId());
+            if (doneTask != null) {
+                menuView.showTaskDone();
+            } else {
+                menuView.showMessage("Task with this ID not found or belongs to another user.");
+            }
         }
     }
 }

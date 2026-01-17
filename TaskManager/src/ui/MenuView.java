@@ -37,6 +37,10 @@ public class MenuView {
         System.out.println("Task created.");
     }
 
+    public void showTaskDone() {
+        System.out.println("Task marked as done.");
+    }
+
     public void showMessage(String message) {
         System.out.println(message);
     }
