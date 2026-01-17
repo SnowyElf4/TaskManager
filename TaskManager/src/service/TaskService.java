@@ -40,7 +40,7 @@ public class TaskService {
 
         Task task = new Task(id, userId, title, description);
 
-        storage.getTasks().add(task);
+        storage.addTask(task);
         storage.saveTasks();
         return task;
     }
@@ -51,12 +51,11 @@ public class TaskService {
             return null;
 
         Task task = storage.findTaskById(taskId);
-        if (task != null && task.getUserId() == userId) {
+        if (task != null && task.getUserId() == userId && !task.isDone()) {
             task.markDone();
             storage.saveTasks();
             return task;
         }
-
         return null;
     }
 

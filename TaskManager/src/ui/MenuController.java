@@ -80,6 +80,12 @@ public class MenuController {
             case 1:
                 createTaskFlow();
                 break;
+            case 2:
+                showTasksFlow();
+                break;
+            case 3:
+                markTaskDoneFlow();
+                break;
             case 4:
                 currentUser = null;
                 break;
@@ -106,10 +112,14 @@ public class MenuController {
         List<Task> userTasks = taskService.getTaskByUser(currentUser.getId());
         menuView.showTasks(userTasks);
 
+        if (userTasks.isEmpty()) {
+            menuView.showMessage("No tasks to mark done.");
+            return;
+        }
+
         int input = inputReader.readInt("Enter task ID to mark done (0 for cancel)", 0, 99999999);
 
         if (input == 0) {
-            isRunning = false;
             return;
         } else {
             Task doneTask = taskService.markTaskDone(input, currentUser.getId());

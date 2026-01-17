@@ -1,18 +1,10 @@
 package src;
 
-import java.util.Scanner;
+import src.ui.MenuController;
 
-import src.service.StorageService;
-import src.ui.Menu;
-
-class Main {
+public class Main {
     public static void main(String[] args) {
-        StorageService storage = new StorageService();
-        storage.loadTasks();
-        storage.loadUsers();
-        Menu menu = new Menu();
-        Scanner scanner = new Scanner(System.in);
+        MenuController menu = new MenuController();
         menu.run();
-        scanner.close();
     }
 }
