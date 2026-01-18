@@ -32,6 +32,7 @@ src/
  │   └─ InputReader.java      // безопасный ввод данных
  │
  ├─ service/
+ │   ├─ IdGenerator.java      
  │   ├─ UserService.java
  │   ├─ TaskService.java
  │   └─ StorageService.java  // работа с JSON
@@ -40,9 +41,8 @@ src/
  │   └─ User.java
  │
  ├─ task/
- │   ├─ Task.java
- │   └─ IdGenerator.java
- │
+ │   └─ Task.java
+ │    
  └─ Main.java
 ```
 
