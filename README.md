@@ -27,6 +27,7 @@ src/
  │   └─ AppConfig.java
  │
  ├─ ui/
+ │   ├─ IdGenerator.java      // генерация ID для данных
  │   ├─ MenuController.java   // управление флоу приложения
  │   ├─ MenuView.java         // вывод в консоль
  │   └─ InputReader.java      // безопасный ввод данных
@@ -40,9 +41,8 @@ src/
  │   └─ User.java
  │
  ├─ task/
- │   ├─ Task.java
- │   └─ IdGenerator.java
- │
+ │   └─ Task.java
+ │    
  └─ Main.java
 ```
 
