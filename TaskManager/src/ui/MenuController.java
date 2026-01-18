@@ -32,7 +32,7 @@ public class MenuController {
     public void registrationFlow() {
         menuView.showRegistrationMenu();
 
-        int input = inputReader.readInt(null, 0, 1);
+        int input = inputReader.readInt("Choose variant: ", 0, 1);
 
         if (input == 0) {
             isRunning = false;
@@ -58,7 +58,7 @@ public class MenuController {
         menuView.showUsers(storageService.getUsers());
         menuView.showMessage("0. Exit");
 
-        int input = inputReader.readInt("Choose user: ", 0, storageService.getUsers().size());
+        int input = inputReader.readInt("Choose variant: ", 0, storageService.getUsers().size());
 
         if (input == 0) {
             isRunning = false;
@@ -71,7 +71,7 @@ public class MenuController {
     public void mainMenuFlow() {
         menuView.showMainMenu();
 
-        int input = inputReader.readInt(null, 0, 4);
+        int input = inputReader.readInt("Choose variant: ", 0, 4);
 
         switch (input) {
             case 0:
@@ -81,10 +81,10 @@ public class MenuController {
                 createTaskFlow();
                 break;
             case 2:
-                showTasksFlow();
+                markTaskDoneFlow();
                 break;
             case 3:
-                markTaskDoneFlow();
+                showTasksFlow();
                 break;
             case 4:
                 currentUser = null;
