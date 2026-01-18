@@ -27,12 +27,12 @@ src/
  │   └─ AppConfig.java
  │
  ├─ ui/
- │   ├─ IdGenerator.java      // генерация ID для данных
  │   ├─ MenuController.java   // управление флоу приложения
  │   ├─ MenuView.java         // вывод в консоль
  │   └─ InputReader.java      // безопасный ввод данных
  │
  ├─ service/
+ │   ├─ IdGenerator.java      
  │   ├─ UserService.java
  │   ├─ TaskService.java
  │   └─ StorageService.java  // работа с JSON
