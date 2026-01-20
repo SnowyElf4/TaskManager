@@ -2,24 +2,26 @@ package src.ui;
 
 import java.util.List;
 import src.user.*;
+import src.repository.*;
 import src.service.*;
 import src.task.*;
 
 public class MenuController {
     private User currentUser = null;
-    private StorageService storageService = new StorageService();
-    private UserService userService = new UserService(storageService);
-    private TaskService taskService = new TaskService(storageService);
+    private UserRepository userRepository = new UserRepository();
+    private TaskRepository taskRepository = new TaskRepository();
+    private UserService userService = new UserService(userRepository);
+    private TaskService taskService = new TaskService(taskRepository, userRepository);
     private MenuView menuView = new MenuView();
     private InputReader inputReader = new InputReader();
     private boolean isRunning = true;
 
     public void run() {
-        storageService.loadTasks();
-        storageService.loadUsers();
+        taskRepository.loadTasks();
+        userRepository.loadUsers();
 
         while (isRunning) {
-            if (storageService.getUsers().isEmpty()) {
+            if (userRepository.getUsers().isEmpty()) {
                 registrationFlow();
             } else if (currentUser == null) {
                 chooseUserFlow();
@@ -55,17 +57,17 @@ public class MenuController {
     }
 
     public void chooseUserFlow() {
-        menuView.showUsers(storageService.getUsers());
+        menuView.showUsers(userRepository.getUsers());
         menuView.showMessage("0. Exit");
 
-        int input = inputReader.readInt("Choose variant: ", 0, storageService.getUsers().size());
+        int input = inputReader.readInt("Choose variant: ", 0, userRepository.getUsers().size());
 
         if (input == 0) {
             isRunning = false;
             return;
         }
 
-        currentUser = storageService.getUsers().get(input - 1);
+        currentUser = userRepository.getUsers().get(input - 1);
     }
 
     public void mainMenuFlow() {
@@ -117,7 +119,7 @@ public class MenuController {
             return;
         }
 
-        int input = inputReader.readInt("Enter task ID to mark done (0 for cancel)", 0, 99999999);
+        int input = inputReader.readInt("Enter task ID to mark done (0 for cancel): ", 0, 99999999);
 
         if (input == 0) {
             return;

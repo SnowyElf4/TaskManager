@@ -19,7 +19,6 @@ public class Task {
         this.done = true;
     }
 
-    public void setUserId(int userId) { this.userId = userId; }
     public int getUserId() { return this.userId; }
     public void setId(int savedId) { this.taskId = savedId; }
     public int getId() { return taskId; }

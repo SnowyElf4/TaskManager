@@ -2,19 +2,20 @@ package src.service;
 
 import java.util.List;
 
+import src.repository.*;
 import src.user.*;
 
 public class UserService {
     private IdGenerator idGen = new IdGenerator();
-    private StorageService storage;
+    private UserRepository userRepository;
 
-    public UserService(StorageService storage) {
-        this.storage = storage;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public User createUser(String name) {
-        List<User> users = storage.getUsers();
-        User existUser = findUserByName(name);
+        List<User> users = userRepository.getUsers();
+        User existUser = userRepository.findUserByName(name);
 
         if (existUser != null)
             return null;
@@ -39,18 +40,7 @@ public class UserService {
         user.setId(id);
         user.setName(name);
 
-        storage.addUser(user);
-        storage.saveUsers();
+        userRepository.addUser(user);
         return user;
-    }
-
-    public User findUserByName(String name) {
-        List<User> users = storage.getUsers();
-        for (User user : users) {
-            if (user.getName().equals(name)) {
-                return user;
-            }
-        }
-        return null;
     }
 }

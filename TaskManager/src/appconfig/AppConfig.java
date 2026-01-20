@@ -12,11 +12,6 @@ public class AppConfig {
             dataDir.mkdir();
     }
 
-    public String getUsersFilePath() {
-        return USERS_FILE;
-    }
-
-    public String getTasksFilePath() {
-        return TASKS_FILE;
-    }
+    public String getUsersFilePath() { return USERS_FILE; }
+    public String getTasksFilePath() { return TASKS_FILE; }
 }

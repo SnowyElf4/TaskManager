@@ -26,6 +26,10 @@ src/
  ├─ appconfig/
  │   └─ AppConfig.java
  │
+ ├─ repository/
+ │   ├─ TaskRepository.java
+ │   └─ UserRepository.java
+ │
  ├─ ui/
  │   ├─ MenuController.java   // управление флоу приложения
  │   ├─ MenuView.java         // вывод в консоль
@@ -34,8 +38,8 @@ src/
  ├─ service/
  │   ├─ IdGenerator.java      
  │   ├─ UserService.java
- │   ├─ TaskService.java
- │   └─ StorageService.java  // работа с JSON
+ │   └─ TaskService.java
+ │    StorageService.java  // работа с JSON
  │
  ├─ user/
  │   └─ User.java
@@ -50,8 +54,8 @@ src/
 
 * `MenuController` управляет логикой переходов между меню
 * `MenuView` **ничего не знает о логике**, только выводит
-* `Service`-классы не работают с вводом/выводом
-* `StorageService` — единая точка чтения и записи JSON
+* `Service` классы не работают с вводом/выводом
+* `Repository` управляет данными сущностей
 
 Данные **не теряются** между запусками приложения.
 
