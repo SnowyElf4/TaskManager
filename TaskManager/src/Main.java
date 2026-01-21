@@ -1,10 +1,9 @@
 package src;
 
-import src.ui.MenuController;
+import src.ui.controller.MenuController;
 
 public class Main {
     public static void main(String[] args) {
-        MenuController menu = new MenuController();
-        menu.run();
+        new MenuController().run();
     }
 }
