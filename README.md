@@ -28,6 +28,7 @@ src/
  │   └─ AppConfig.java
  │
  ├─ repository/
+ │   ├─ JsonRepository.java
  │   ├─ TaskRepository.java
  │   └─ UserRepository.java
  │
