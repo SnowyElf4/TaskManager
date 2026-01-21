@@ -41,16 +41,17 @@ public class TaskController {
         }
 
         int input = inputReader.readInt("Enter task ID to mark done (0 for cancel): ", 0, 99999999);
+        Task task = taskRepository.findTaskById(input);
 
-        if (input == 0) {
+        if (task == null || task.getUserId() != currentUser.getId()) {
+            menuView.showMessage("Task not found or belongs to another user.");
+            return;
+        } else if (task.isDone()) {
+            menuView.showMessage("Task already done.");
             return;
         } else {
-            Task doneTask = taskService.markTaskDone(input, currentUser.getId());
-            if (doneTask != null) {
-                taskView.showTaskDone();
-            } else {
-                menuView.showMessage("Task with this ID not found or belongs to another user.");
-            }
+            taskService.markTaskDone(input, currentUser.getId());
+            taskView.showTaskDone();
         }
     }
 }

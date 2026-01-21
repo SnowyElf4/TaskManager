@@ -27,12 +27,13 @@ public class MenuController {
     }
 
     public void mainMenuFlow() {
-        menuView.showMainMenu();
+        menuView.showMainMenuMessage();
 
         int input = inputReader.readInt("Choose variant: ", 0, 4);
 
         switch (input) {
             case 0:
+                menuView.showExitMessage();
                 isRunning = false;
                 break;
             case 1:
