@@ -14,6 +14,7 @@ public class TaskView {
                 System.out.println("Task name: " + task.getTitle());
                 System.out.println("Description: " + task.getDescription());
                 System.out.println("Is done: " + task.isDone());
+                System.out.println("Created at: " + task.getCreatedAt());
             }
         }
     }

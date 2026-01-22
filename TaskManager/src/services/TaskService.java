@@ -79,4 +79,10 @@ public class TaskService {
         }
         return userTasks;
     }
+
+    public List<Task> getTasksByDate(int userId) {
+        List<Task> tasks = getTaskByUser(userId);
+        tasks.sort(Comparator.comparing(Task::getCreatedAt));
+        return tasks;
+    }
 }
