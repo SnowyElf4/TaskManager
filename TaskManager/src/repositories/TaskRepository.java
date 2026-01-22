@@ -1,11 +1,11 @@
-package src.repository;
+package src.repositories;
 
 import java.util.*;
 
 import com.google.gson.reflect.TypeToken;
 
 import src.appconfig.AppConfig;
-import src.task.Task;
+import src.models.task.Task;
 
 public class TaskRepository {
     private AppConfig appConfig = new AppConfig();

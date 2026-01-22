@@ -1,13 +1,13 @@
-package src.ui.controller;
+package src.ui.controllers;
 
 import java.util.List;
 
-import src.repository.*;
-import src.service.TaskService;
-import src.task.Task;
+import src.models.task.Task;
+import src.models.user.User;
+import src.repositories.*;
+import src.services.TaskService;
 import src.ui.InputReader;
-import src.ui.view.*;
-import src.user.User;
+import src.ui.views.*;
 
 public class TaskController {
     private UserRepository userRepository = new UserRepository();
@@ -19,7 +19,7 @@ public class TaskController {
 
     public void showTasksFlow(User currentUser) {
         List<Task> userTasks = taskService.getTaskByUser(currentUser.getId());
-        taskView.showTasks(userTasks);
+        taskView.showTasksMessage(userTasks);
     }
 
     public void createTaskFlow(User currentUser) {
@@ -28,12 +28,12 @@ public class TaskController {
 
         Task task = taskService.createTask(currentUser.getId(), inputTaskName, inputTaskDescription);
 
-        taskView.showTaskCreated(task);
+        taskView.showTaskCreatedMessage(task);
     }
 
     public void markTaskDoneFlow(User currentUser) {
         List<Task> userTasks = taskService.getTaskByUser(currentUser.getId());
-        taskView.showTasks(userTasks);
+        taskView.showTasksMessage(userTasks);
 
         if (userTasks.isEmpty()) {
             menuView.showMessage("No tasks to mark done.");
@@ -43,15 +43,19 @@ public class TaskController {
         int input = inputReader.readInt("Enter task ID to mark done (0 for cancel): ", 0, 99999999);
         Task task = taskRepository.findTaskById(input);
 
-        if (task == null || task.getUserId() != currentUser.getId()) {
-            menuView.showMessage("Task not found or belongs to another user.");
+        
+        if (task == null) {
+            taskView.showTaskNotFoundMessage();
+            return;
+        } else if (task.getUserId() != currentUser.getId()) {
+            taskView.showTaskNotBelongsToUserMessage();
             return;
         } else if (task.isDone()) {
-            menuView.showMessage("Task already done.");
+            taskView.showTaskAlreadyDoneMessage();
             return;
         } else {
             taskService.markTaskDone(input, currentUser.getId());
-            taskView.showTaskDone();
+            taskView.showTaskDoneMessage();
         }
     }
 }

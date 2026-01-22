@@ -1,19 +1,20 @@
-package src.service;
+package src.services;
 
 import java.util.*;
 
-import src.user.*;
-import src.repository.*;
-import src.task.*;
+import src.models.task.*;
+import src.models.user.*;
+import src.repositories.*;
 
 public class TaskService {
-    private IdGenerator idGen = new IdGenerator();
     private TaskRepository taskRepository;
     private UserRepository userRepository;
+    private EntityService<Task> genericService = new EntityService<>();
 
     public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
         this.userRepository = userRepository;
+        this.genericService = new EntityService<>();
     }
 
     public Task createTask(int userId, String title, String description) {
@@ -23,26 +24,11 @@ public class TaskService {
             return null;
         }
 
-        List<Task> tasks = taskRepository.getTasks();
-        int id = idGen.generateId();
+        Task task = new Task(userId, title, description);
 
-        while (true) {
-            boolean uniq = true;
-            for (Task existingTask : tasks) {
-                if (existingTask.getId() == id) {
-                    id = idGen.generateId();
-                    uniq = false;
-                    break;
-                }
-            }
-            if (uniq) {
-                break;
-            }
-        }
-
-        Task task = new Task(id, userId, title, description);
-
+        genericService.create(task);
         taskRepository.addTask(task);
+
         return task;
     }
 

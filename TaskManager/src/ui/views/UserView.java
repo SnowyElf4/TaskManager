@@ -1,8 +1,8 @@
-package src.ui.view;
+package src.ui.views;
 
 import java.util.List;
 
-import src.user.User;
+import src.models.user.User;
 
 public class UserView {
     public void showUserRegistration() { System.out.println("1. Create user\n\n0.Exit"); }

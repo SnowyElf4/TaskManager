@@ -1,10 +1,10 @@
-package src.ui.controller;
+package src.ui.controllers;
 
-import src.repository.UserRepository;
-import src.service.UserService;
-import src.ui.view.*;
+import src.models.user.*;
+import src.repositories.UserRepository;
+import src.services.UserService;
 import src.ui.*;
-import src.user.*;
+import src.ui.views.*;
 
 public class UserController {
     UserRepository userRepository = new UserRepository();

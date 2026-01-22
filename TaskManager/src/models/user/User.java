@@ -1,11 +1,17 @@
-package src.user;
+package src.models.user;
 
-public class User {
+import src.interfaces.Identifiable;
+
+public class User implements Identifiable {
     private String name;
     private int id;
 
-    public void setId(int savedId) { this.id = savedId; }
+    @Override
     public int getId() { return this.id; }
+
+    @Override
+    public void setId(int savedId) { this.id = savedId; }
+    
     public void setName(String name) { this.name = name; }
     public String getName() { return this.name; }
 }

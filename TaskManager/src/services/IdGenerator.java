@@ -1,4 +1,4 @@
-package src.service;
+package src.services;
 
 public class IdGenerator {
     public int generateId() {

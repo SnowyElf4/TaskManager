@@ -1,9 +1,9 @@
-package src.ui.controller;
+package src.ui.controllers;
 
-import src.user.*;
-import src.repository.*;
+import src.models.user.*;
+import src.repositories.*;
 import src.ui.InputReader;
-import src.ui.view.*;
+import src.ui.views.*;
 
 public class MenuController {
     private User currentUser = null;

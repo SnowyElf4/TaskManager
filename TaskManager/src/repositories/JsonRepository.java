@@ -1,4 +1,4 @@
-package src.repository;
+package src.repositories;
 
 import java.io.*;
 import java.lang.reflect.Type;
