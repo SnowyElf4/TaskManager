@@ -18,8 +18,16 @@ public class MenuController {
         while (isRunning) {
             if (userRepository.getUsers().isEmpty()) {
                 currentUser = userController.registrationFlow();
+                if (currentUser == null) {
+                    menuView.showExitMessage();
+                    isRunning = false;
+                }
             } else if (currentUser == null) {
                 currentUser = userController.chooseUserFlow();
+                if (currentUser == null) {
+                    menuView.showExitMessage();
+                    isRunning = false;
+                }
             } else {
                 mainMenuFlow();
             }

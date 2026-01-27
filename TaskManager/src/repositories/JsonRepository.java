@@ -1,15 +1,21 @@
 package src.repositories;
 
+import src.adapters.*;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.function.Predicate;
+import java.time.LocalDateTime;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class JsonRepository<T> {
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+            .setPrettyPrinting()
+            .create();
     private List<T> items = new ArrayList<>();
     private String filePath;
     private Type listType = null;
