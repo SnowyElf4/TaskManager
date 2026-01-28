@@ -1,0 +1,7 @@
+out/*
+*.class 
+*.vscode/
+*.py
+data/*
+.classpath
+tasks.md
