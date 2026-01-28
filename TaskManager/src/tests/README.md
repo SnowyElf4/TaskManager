@@ -1,0 +1,1 @@
+**Tests will reset the JSON files in the data folder. If you want to keep your existing data, save a copy before running the tests.**

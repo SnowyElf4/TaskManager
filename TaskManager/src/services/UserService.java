@@ -12,16 +12,17 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    // null validation here because Optional redundant
     public User createUser(String name) {
         User existUser = userRepository.findUserByName(name);
 
+        // null validation here because Optional redundant
         if (existUser != null)
             return null;
 
         User user = new User();
 
         int id = generateUserId();
+        
         user.setId(id);
         user.setName(name);
         userRepository.addUser(user);
