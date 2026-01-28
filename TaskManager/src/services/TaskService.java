@@ -8,6 +8,7 @@ import src.repositories.*;
 public class TaskService {
     private TaskRepository taskRepository;
     private UserRepository userRepository;
+    private IdGenerator idGen = new IdGenerator();
 
     public TaskService(TaskRepository taskRepository, UserRepository userRepository) {
         this.taskRepository = taskRepository;
@@ -18,6 +19,10 @@ public class TaskService {
         return Optional.ofNullable(userRepository.findUserById(userId))
                 .map(user -> {
                     Task task = new Task(userId, title, description);
+
+                    int id = generateTaskId();
+                    task.setId(id);
+
                     taskRepository.addTask(task);
                     return task;
                 });
@@ -46,5 +51,13 @@ public class TaskService {
         List<Task> tasks = taskRepository.getTaskByUser(userId);
         tasks.sort(Comparator.comparing(Task::getCreatedAt));
         return tasks;
+    }
+
+    private int generateTaskId() {
+        int id;
+        do {
+            id = idGen.generateId();
+        } while (taskRepository.findTaskById(id) != null);
+            return id;
     }
 }

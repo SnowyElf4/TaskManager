@@ -5,13 +5,13 @@ import src.repositories.*;
 
 public class UserService {
     private UserRepository userRepository;
-    private EntityService<User> genericService = new EntityService<>();
+    private IdGenerator idGen = new IdGenerator();
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.genericService = new EntityService<>();
     }
 
+    // null validation here because Optional redundant
     public User createUser(String name) {
         User existUser = userRepository.findUserByName(name);
 
@@ -20,9 +20,19 @@ public class UserService {
 
         User user = new User();
 
-        genericService.create(user);
+        int id = generateUserId();
+        user.setId(id);
         userRepository.addUser(user);
 
         return user;
+    }
+
+    private int generateUserId() {
+        int id;
+
+        do {
+            id = idGen.generateId();
+        } while (userRepository.findUserById(id) != null);
+            return id;
     }
 }
