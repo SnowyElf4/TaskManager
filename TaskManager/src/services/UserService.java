@@ -23,6 +23,7 @@ public class UserService {
 
         int id = generateUserId();
         user.setId(id);
+        user.setName(name);
         userRepository.addUser(user);
 
         return user;
