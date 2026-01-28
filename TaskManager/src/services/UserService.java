@@ -1,5 +1,6 @@
 package src.services;
 
+import java.util.List;
 import src.models.user.*;
 import src.repositories.*;
 
@@ -15,7 +16,7 @@ public class UserService {
     public User createUser(String name) {
         User existUser = userRepository.findUserByName(name);
 
-        if (existUser != null) 
+        if (existUser != null)
             return null;
 
         User user = new User();
@@ -29,10 +30,13 @@ public class UserService {
 
     private int generateUserId() {
         int id;
-
         do {
             id = idGen.generateId();
         } while (userRepository.findUserById(id) != null);
-            return id;
+        return id;
+    }
+
+    public List<User> getUsers() {
+        return userRepository.getUsers();
     }
 }

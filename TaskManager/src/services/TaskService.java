@@ -58,6 +58,6 @@ public class TaskService {
         do {
             id = idGen.generateId();
         } while (taskRepository.findTaskById(id) != null);
-            return id;
+        return id;
     }
 }

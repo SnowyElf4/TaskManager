@@ -1,33 +1,28 @@
 package src.ui.controllers;
 
 import src.models.user.*;
-import src.repositories.*;
 import src.ui.InputReader;
 import src.ui.views.*;
 
 public class MenuController {
     private User currentUser = null;
-    private UserRepository userRepository = new UserRepository();
     private MenuView menuView = new MenuView();
     private InputReader inputReader = new InputReader();
-    private UserController userController = new UserController();
-    private TaskController taskController = new TaskController();
+    private TaskController taskController;
+    private UserController userController;
     private boolean isRunning = true;
+
+    public MenuController(UserController userController, TaskController taskController) {
+        this.userController = userController;
+        this.taskController = taskController;
+    }
 
     public void run() {
         while (isRunning) {
-            if (userRepository.getUsers().isEmpty()) {
-                currentUser = userController.registrationFlow();
-                if (currentUser == null) {
-                    menuView.showExitMessage();
-                    isRunning = false;
-                }
-            } else if (currentUser == null) {
-                currentUser = userController.chooseUserFlow();
-                if (currentUser == null) {
-                    menuView.showExitMessage();
-                    isRunning = false;
-                }
+            currentUser = userController.resolveUserFlow();
+            if (currentUser == null) {
+                menuView.showExitMessage();
+                isRunning = false;
             } else {
                 mainMenuFlow();
             }

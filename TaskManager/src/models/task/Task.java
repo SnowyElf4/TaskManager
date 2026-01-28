@@ -20,10 +20,6 @@ public class Task implements Identifiable {
         this.createdAt = LocalDateTime.now();
     }
 
-    public void markDone() {
-        this.done = true;
-    }
-
     @Override
     public int getId() { return taskId; }
 
@@ -31,6 +27,7 @@ public class Task implements Identifiable {
     public void setId(int savedId) { this.taskId = savedId; }
     
     public boolean isDone() { return done; }
+    public void markDone() { this.done = true; }
 
     // getters
     public String getDescription() { return this.description; }
