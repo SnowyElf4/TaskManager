@@ -43,6 +43,11 @@ public class TaskController {
 
     public void showTasksFlow(User currentUser) {
         List<Task> tasks = taskService.getTasksByDate(currentUser.getId());
+
+        if (tasks.isEmpty()) {
+            menuView.showMessage("No tasks found.");
+            return;
+        }
         taskView.showTasksMessage(tasks);
     }
 }

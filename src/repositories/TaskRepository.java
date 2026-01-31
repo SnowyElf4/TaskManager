@@ -19,9 +19,9 @@ public class TaskRepository {
     public List<Task> getTasks() { return taskRepository.getAll(); }
 
     private List<Task> filterTasks(Predicate<Task> predicate) {
-        return getTasks().stream()
-                     .filter(predicate)
-                     .toList();
+        return new ArrayList<>(getTasks().stream()
+                                         .filter(predicate)
+                                         .toList());
     }
 
     public Optional<Task> findTaskByIdForUser(int taskId, int userId) {

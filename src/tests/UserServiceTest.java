@@ -3,12 +3,12 @@ package tests;
 import appconfig.AppConfig;
 import domain.user.User;
 import repositories.UserRepository;
-import services.UserService;                
+import services.UserService;
 
 import java.io.File;
 
 public class UserServiceTest {
-    
+
     public static void main(String[] args) {
         // Clear Files before tests
         clearUsersFile();
@@ -18,6 +18,8 @@ public class UserServiceTest {
         testCreateUserWhenNameNotExists();
         testGetUsers();
         System.out.println("All tests done");
+
+        clearUsersFile();
     }
 
     private static void testCreateUserWhenNameExists() {
@@ -73,6 +75,7 @@ public class UserServiceTest {
     private static void clearUsersFile() {
         AppConfig appConfig = new AppConfig();
         File usersFile = new File(appConfig.getUsersFilePath());
-        if (usersFile.exists()) usersFile.delete();
+        if (usersFile.exists())
+            usersFile.delete();
     }
 }
