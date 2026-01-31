@@ -1,11 +1,13 @@
-package src.ui.views;
+package ui.views;
 
 import java.util.List;
 
-import src.models.user.User;
+import domain.user.User;
 
 public class UserView {
-    public void showUserRegistration() { System.out.println("1. Create user\n\n0.Exit"); }
+    public void showUserRegistration() {
+        System.out.println("1. Create user\n\n0.Exit");
+    }
 
     public void showUsers(List<User> users) {
         for (int i = 0; i < users.size(); i++) {

@@ -1,10 +1,10 @@
-package src.ui.controllers;
+package ui.controllers;
 
-import src.services.*;
-import src.ui.views.*;
-import src.ui.*;
-import src.models.user.User;
-import src.models.task.Task;
+import services.*;
+import ui.views.*;
+import ui.*;
+import domain.user.User;
+import domain.task.Task;
 
 import java.util.*;
 

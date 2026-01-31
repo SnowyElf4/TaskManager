@@ -1,8 +1,8 @@
-package src.ui.controllers;
+package ui.controllers;
 
-import src.models.user.*;
-import src.ui.InputReader;
-import src.ui.views.*;
+import domain.user.*;
+import ui.InputReader;
+import ui.views.*;
 
 public class MenuController {
     private User currentUser = null;

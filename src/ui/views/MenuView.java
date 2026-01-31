@@ -1,4 +1,4 @@
-package src.ui.views;
+package ui.views;
 
 public class MenuView {
     public void showMainMenuMessage() { System.out.println("1. Task menu.\n2. Change user.\n0. Exit"); }

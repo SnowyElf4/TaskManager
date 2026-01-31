@@ -1,8 +1,8 @@
-package src.models.task;
+package domain.task;
 
 import java.time.LocalDateTime;
 
-import src.interfaces.Identifiable;
+import interfaces.Identifiable;
 
 public class Task implements Identifiable {
     private int taskId;

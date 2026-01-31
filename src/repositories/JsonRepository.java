@@ -1,6 +1,6 @@
-package src.repositories;
+package repositories;
 
-import src.adapters.*;
+import adapters.*;
 
 import java.io.*;
 import java.lang.reflect.Type;

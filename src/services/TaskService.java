@@ -1,9 +1,9 @@
-package src.services;
+package services;
 
 import java.util.*;
 
-import src.models.task.*;
-import src.repositories.*;
+import domain.task.*;
+import repositories.*;
 
 public class TaskService {
     private TaskRepository taskRepository;

@@ -1,14 +1,14 @@
-package src.tests;
+package tests;
 
-import src.appconfig.AppConfig;
-import src.models.user.User;
-import src.repositories.UserRepository;
-import src.services.UserService;
+import appconfig.AppConfig;
+import domain.user.User;
+import repositories.UserRepository;
+import services.UserService;                
 
 import java.io.File;
 
 public class UserServiceTest {
-
+    
     public static void main(String[] args) {
         // Clear Files before tests
         clearUsersFile();

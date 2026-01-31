@@ -1,8 +1,8 @@
-package src.ui.views;
+package ui.views;
 
 import java.util.List;
 
-import src.models.task.Task;
+import domain.task.Task;
 
 public class TaskView {
     public void showTaskMenuMessage() {

@@ -1,12 +1,12 @@
-package src.repositories;
+package repositories;
 
 import java.util.*;
 import java.util.function.Predicate;
 
 import com.google.gson.reflect.TypeToken;
 
-import src.appconfig.AppConfig;
-import src.models.task.Task;
+import appconfig.*;
+import domain.task.*;
 
 public class TaskRepository {
     private AppConfig appConfig = new AppConfig();

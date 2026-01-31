@@ -1,9 +1,9 @@
-package src.ui.controllers;
+package ui.controllers;
 
-import src.models.user.*;
-import src.services.UserService;
-import src.ui.*;
-import src.ui.views.*;
+import domain.user.*;
+import services.UserService;
+import ui.*;
+import ui.views.*;
 
 public class UserController {
     InputReader inputReader = new InputReader();

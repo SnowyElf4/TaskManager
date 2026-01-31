@@ -1,8 +1,6 @@
-package src;
-
-import src.repositories.*;
-import src.services.*;
-import src.ui.controllers.*;
+import repositories.*;
+import services.*;
+import ui.controllers.*;
 
 public class Main {
     private UserRepository userRepository = new UserRepository();

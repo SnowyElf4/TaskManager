@@ -1,8 +1,8 @@
-package src.services;
+package services;
 
 import java.util.List;
-import src.models.user.*;
-import src.repositories.*;
+import domain.user.*;
+import repositories.*;
 
 public class UserService {
     private UserRepository userRepository;

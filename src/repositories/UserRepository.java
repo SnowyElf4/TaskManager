@@ -1,11 +1,11 @@
-package src.repositories;
+package repositories;
 
 import java.util.*;
 
 import com.google.gson.reflect.TypeToken;
 
-import src.appconfig.*;
-import src.models.user.*;
+import appconfig.*;
+import domain.user.*;
 
 public class UserRepository {
     private AppConfig appConfig = new AppConfig();
